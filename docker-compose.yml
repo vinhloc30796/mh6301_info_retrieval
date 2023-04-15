@@ -9,3 +9,5 @@ services:
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=false
+    volumes:
+      - ./elastic_data:/usr/share/opensearch/data
