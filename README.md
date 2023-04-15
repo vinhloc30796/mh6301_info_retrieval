@@ -3,4 +3,10 @@
 ## TODO:
 
 - [ ] Enable array indexing for array fields (e.g. business.categories, checkin.date, etc.)
+    - Reference: EiA, 3.3.1 Arrays
+- [ ] Enable nested type indexing for nested fields (e.g. business.hours, business.attributes, etc.)
+    - Reference: EiA, 8.3 Nested type
 - [ ] Enable geolocation indexing for long/lat fields (e.g. business.latitude, business.longitude, etc.)
+    - Reference: EiA, Appendix A Working with geospatial data
+
+Note: EiA = Elasticsearch in Action (1st Edition)
