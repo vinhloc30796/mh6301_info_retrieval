@@ -1,12 +1,35 @@
 import Head from "next/head";
-import { Inter } from "next/font/google";
+
 import styles from "@/styles/Home.module.css";
 
-// ReactiveSearch
-import { ReactiveBase } from "@appbaseio/reactivesearch";
+// SearchKit
+import React from "react";
+import Client from "@searchkit/instantsearch-client";
+import {
+  InstantSearch,
+  SearchBox,
+  Hits,
+  Highlight,
+  RefinementList,
+  Pagination,
+  NumericMenu,
+} from "react-instantsearch-dom";
 
-const inter = Inter({ subsets: ["latin"] });
-const es_url = process.env.ES_URL || "http://localhost:9200";
+const searchClient = Client({
+  url: "/api/search",
+});
+
+function Hit(props: { hit: any }) {
+  const { hit } = props;
+  return (
+    <div>
+      <div>
+        <Highlight attribute="title" hit={hit} />
+        <Highlight attribute="description" hit={hit} />
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
   return (
@@ -18,12 +41,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <ReactiveBase
-          // Get URL from env var ES_URL or default to localhost:9200
-          url={es_url}
-          app="business"
-          credentials="elasticsearch:changeme"
-        />
+        <InstantSearch indexName="business" searchClient={searchClient}>
+          <SearchBox />
+          <Hits hitComponent={Hit} />
+        </InstantSearch>
         <h1 className="text-3xl font-bold">Hello World</h1>
       </main>
     </>
