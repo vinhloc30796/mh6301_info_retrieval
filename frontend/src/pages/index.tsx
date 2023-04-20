@@ -10,6 +10,7 @@ import {
   SearchBox,
   Hits,
   Highlight,
+  Snippet,
   RefinementList,
   Pagination,
   NumericMenu,
@@ -23,10 +24,12 @@ function Hit(props: { hit: any }) {
   const { hit } = props;
   return (
     <div>
-      <div>
-        <Highlight attribute="title" hit={hit} />
-        <Highlight attribute="description" hit={hit} />
-      </div>
+      <h2 className="text-3xl font-bold">
+        <Highlight attribute="name" hit={hit} />
+      </h2>
+      <p>
+        <Snippet attribute="address" hit={hit} />
+      </p>
     </div>
   );
 }
