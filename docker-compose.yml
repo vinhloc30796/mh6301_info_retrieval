@@ -9,5 +9,12 @@ services:
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=false
+      - http.port=9200
+      - http.cors.enabled=true
+      - http.cors.allow-origin=http://localhost:1358,http://127.0.0.1:1358
+      - http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
+      - http.cors.allow-credentials=true
+      - bootstrap.memory_lock=true
+      # - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
     volumes:
       - ./elastic_data:/usr/share/opensearch/data
