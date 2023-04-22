@@ -1,4 +1,13 @@
-# 
+# Progress
+
+## 2023-04-20
+
+- https://mantine.dev/core/app-shell/
+- https://www.searchkit.co/docs/getting-started/with-react
+- https://github.com/searchkit/searchkit/blob/main/examples/with-ui-nextjs-react/pages/index.tsx
+- https://www.algolia.com/doc/guides/building-search-ui/getting-started/react/?client=jsx
+    - Alternatively: https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/react-hooks/
+
 
 ## TODO:
 
