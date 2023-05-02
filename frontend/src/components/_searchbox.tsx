@@ -1,3 +1,7 @@
+// Flowbite
+import { TextInput } from "flowbite-react";
+// HeroIcons
+import { HiMenuAlt1 } from "react-icons/hi";
 // SearchKit
 import { connectSearchBox } from "react-instantsearch-dom";
 
@@ -13,10 +17,13 @@ const SearchBox = ({
   refine,
 }: SearchBoxProps) => (
   <form noValidate action="" role="search" className="flex flex-col w-full">
-    <input
+    <TextInput
+      id="search"
       type="search"
+      placeholder="Search"
       value={currentRefinement}
       onChange={(event) => refine(event.currentTarget.value)}
+      required={false}
     />
     {isSearchStalled ? "My search is stalled" : ""}
   </form>
