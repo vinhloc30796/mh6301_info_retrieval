@@ -1,7 +1,10 @@
 import os
-from dataclasses import dataclass
-from typing import List, Iterable, Callable, Union
 import json
+import logging
+from dataclasses import dataclass
+from typing import List, Iterable, Callable, Union, Optional
+
+# ES
 from elasticsearch import Elasticsearch
 
 
@@ -11,6 +14,7 @@ class Metadata:
     index: str
     id_field: Union[List[str], str]
     mapping: dict
+    array_fields: Optional[Union[List[str], str]] = None
 
 
 METADATA = [
@@ -33,9 +37,10 @@ METADATA = [
                 "is_open": {"type": "integer"},
                 "attributes": {"type": "text"},
                 "categories": {"type": "text"},
-                "hours": {"type": "text"},
+                "hours": {"type": "text", "fields": {"keyword": {"type": "keyword"}}},
             }
         },
+        array_fields=["categories"],
     ),
     Metadata(
         filename="yelp_academic_dataset_review.json",
@@ -115,6 +120,7 @@ METADATA = [
     ),
 ]
 
+
 # ES
 def get_client() -> Elasticsearch:
     es_url = os.getenv("ES_URL", "http://localhost:9200")
@@ -122,10 +128,14 @@ def get_client() -> Elasticsearch:
 
 
 # Data
-def read_json(filename: str) -> Iterable[dict]:
+def read_json(filename: str, limit: int = 5) -> Iterable[dict]:
     # Stream data from JSON file, line by line
+    counter = 0
     with open(filename, "r") as f:
         for line in f:
+            if counter >= limit:
+                break
+            counter += 1
             yield json.loads(line)
 
 
@@ -134,15 +144,30 @@ def _dummy_row(row) -> int:
     return len(row)
 
 
+def _split_array_fields(row: dict, id: str, array_fields: List[str]) -> dict:
+    for field in array_fields:
+        if row.get(field):
+            try: 
+                row[field] = row[field].split(", ")
+            except Exception as e:
+                logging.error(f"Error splitting {field} for {id}: {e}")
+    return row
+
+
 def _index_row(row: dict, es: Elasticsearch, func_metadata: Metadata) -> None:
     if isinstance(func_metadata.id_field, list):
         id = "_".join([row[field] for field in func_metadata.id_field])
     else:
         id = row[func_metadata.id_field]
+
+    # Split
+    if func_metadata.array_fields:
+        row = _split_array_fields(row, id, func_metadata.array_fields)
+
     # Index
     index_res: dict = es.index(index=func_metadata.index, id=id, document=row)
     if index_res["result"] != "created":
-        print(f"Error indexing {func_metadata.index} {id}: {index_res}")
+        logging.error(f"Error indexing {func_metadata.index} {id}: {index_res}")
         return None
     return index_res
 
@@ -158,13 +183,11 @@ def process_data(
     print(f"Processing {filename}...")
 
     # Initialize index
-    result = []
-    for row in read_json(filename):
-        result.append(process_func(row, **kwargs))
-        if len(result) == limit:
-            break
-    print(f"Done! Processed {len(result)} rows.")
-    return result
+    results = []
+    for row in read_json(filename, limit=limit):
+        results.append(process_func(row, **kwargs))
+    print(f"Done! Processed {len(results)} rows.")
+    return results
 
 
 def main():
@@ -172,6 +195,7 @@ def main():
     es = get_client()
     print(es.info().body)
     # Read & process data
+    limit = int(os.getenv("INDEX_LIMIT", 5))
     results = []
     for metadata in METADATA:
         new_result = process_data(
@@ -179,14 +203,12 @@ def main():
             process_func=_index_row,
             es=es,
             func_metadata=metadata,
+            limit=limit,
         )
-        total = es.cat.count(index=metadata.index, params={"format": "json"})[0]["count"]
-        results.append(
-            {
-                "processed": len(new_result),
-                "total": total,
-            }
-        )
+        total = es.cat.count(index=metadata.index, params={"format": "json"})[0][
+            "count"
+        ]
+        results.append({"processed": len(new_result), "total": total})
     return results
 
 
