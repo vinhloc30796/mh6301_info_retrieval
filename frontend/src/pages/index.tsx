@@ -51,8 +51,7 @@ export default function Home() {
             <Sidebar className="z-40">
               <Sidebar.Items>
                 <Sidebar.ItemGroup>
-                <Separator.Root className="SeparatorRoot mt-2 mb-2 h-px bg-gray-200 dark:bg-gray-700" orientation="horizontal" />
-
+                  <Separator.Root className="SeparatorRoot mt-2 mb-2 h-px bg-gray-200 dark:bg-gray-700" orientation="horizontal" />
                   <CustomRefinementList attribute="categories" limit={5} showMore={true} />
                   <Separator.Root className="SeparatorRoot mt-2 mb-2 h-px bg-gray-200 dark:bg-gray-700" orientation="horizontal" />
                   <Sidebar.Item
