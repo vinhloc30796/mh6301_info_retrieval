@@ -10,7 +10,7 @@ type HitsProps = {
 const Hits = ({ hits }: HitsProps) => (
   <ol>
     {hits.map(hit => (
-      <Card className="mb-4" href="#"> 
+      <Card className="mb-4 p-4" href="#"> 
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           <Highlight attribute="name" hit={hit} />
         </h5>
