@@ -7,6 +7,8 @@ import React from "react";
 import { Navbar, Sidebar } from "flowbite-react";
 // HeroIcons
 import { HiChartPie, HiShoppingBag } from "react-icons/hi2";
+// Radix
+import * as Separator from "@radix-ui/react-separator";
 // SearchKit
 import Client from "@searchkit/instantsearch-client";
 import {
@@ -49,7 +51,10 @@ export default function Home() {
             <Sidebar className="z-40">
               <Sidebar.Items>
                 <Sidebar.ItemGroup>
+                <Separator.Root className="SeparatorRoot mt-2 mb-2 h-px bg-gray-200 dark:bg-gray-700" orientation="horizontal" />
+
                   <CustomRefinementList attribute="categories" limit={5} showMore={true} />
+                  <Separator.Root className="SeparatorRoot mt-2 mb-2 h-px bg-gray-200 dark:bg-gray-700" orientation="horizontal" />
                   <Sidebar.Item
                     href="#"
                     icon={HiChartPie}
