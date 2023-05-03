@@ -13,16 +13,13 @@ import * as Separator from "@radix-ui/react-separator";
 import Client from "@searchkit/instantsearch-client";
 import {
   InstantSearch,
-  Hits,
-  Snippet,
-  RefinementList,
-  Pagination,
-  NumericMenu,
+  RangeSlider
 } from "react-instantsearch-dom";
 // Local
 import App from "./_app";
 import CustomNavbar from "../components/_navbar"
 import { CustomSearchBox } from "../components/_searchbox";
+import { CustomRangeSlider } from "../components/_rangeslider";
 import { CustomHits } from "../components/_hits";
 import { CustomRefinementList } from "../components/_refinementlist";
 
@@ -54,11 +51,8 @@ export default function Home() {
                   <Separator.Root className="SeparatorRoot mt-2 mb-2 h-px bg-gray-200 dark:bg-gray-700" orientation="horizontal" />
                   <CustomRefinementList attribute="categories" limit={5} showMore={true} />
                   <Separator.Root className="SeparatorRoot mt-2 mb-2 h-px bg-gray-200 dark:bg-gray-700" orientation="horizontal" />
-                  <Sidebar.Item
-                    href="#"
-                    icon={HiChartPie}
-                  >
-                    To Do
+                  <Sidebar.Item className="px-0">
+                    <CustomRangeSlider attribute="stars" min={0} max={5} step={0.1} />
                   </Sidebar.Item>
                   <Sidebar.Item
                     href="#"

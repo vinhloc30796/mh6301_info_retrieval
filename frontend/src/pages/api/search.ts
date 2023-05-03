@@ -28,6 +28,12 @@ const client = Client({
         field: "categories.keyword", // field must be a keyword type field
         type: "string",
       },
+      // stars
+      {
+        attribute: "stars",
+        field: "stars",
+        type: "numeric",
+      }
     ],
   },
 });
