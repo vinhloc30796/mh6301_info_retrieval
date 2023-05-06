@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
-
+// Flowbite
+import { Badge } from "flowbite-react";
 // HeroIcons
 import { HiChartPie } from "react-icons/hi2";
 // Radix
@@ -47,6 +48,13 @@ const RangeSlider = ({
       <div className="flex items-center justify-left">
         <HiChartPie className="text-2xl text-gray-500 dark:text-gray-500" />
         <p className="px-3">Stars</p>
+        <Badge
+            size="sm"
+            // Blue
+            className="inline-block mr-2 text-white bg-blue-500"
+          >
+            Rating: from {minValue} to {maxValue}
+        </Badge>
       </div>
       <div className="flex items-center justify-center">
         <Slider.Root
