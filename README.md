@@ -23,7 +23,7 @@ Dark modes
 
 ### Backend & Search
 
-- [ ] Enable array indexing for array fields (e.g. business.categories, checkin.date, etc.)
+- [x] Enable array indexing for array fields (e.g. business.categories, checkin.date, etc.)
     - Reference: EiA, 3.3.1 Arrays
 - [ ] Enable nested type indexing for nested fields (e.g. business.hours, business.attributes, etc.)
     - Reference: EiA, 8.3 Nested type
