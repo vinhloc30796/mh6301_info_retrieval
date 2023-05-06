@@ -7,20 +7,19 @@ import React from "react";
 import { Navbar, Sidebar } from "flowbite-react";
 // HeroIcons
 import { HiChartPie, HiShoppingBag } from "react-icons/hi2";
+// Radix
+import * as Separator from "@radix-ui/react-separator";
 // SearchKit
 import Client from "@searchkit/instantsearch-client";
 import {
   InstantSearch,
-  Hits,
-  Snippet,
-  RefinementList,
-  Pagination,
-  NumericMenu,
+  RangeSlider
 } from "react-instantsearch-dom";
 // Local
 import App from "./_app";
 import CustomNavbar from "../components/_navbar"
 import { CustomSearchBox } from "../components/_searchbox";
+import { CustomRangeSlider } from "../components/_rangeslider";
 import { CustomHits } from "../components/_hits";
 import { CustomRefinementList } from "../components/_refinementlist";
 
@@ -49,12 +48,11 @@ export default function Home() {
             <Sidebar className="z-40">
               <Sidebar.Items>
                 <Sidebar.ItemGroup>
+                  <Separator.Root className="SeparatorRoot mt-2 mb-2 h-px bg-gray-200 dark:bg-gray-700" orientation="horizontal" />
                   <CustomRefinementList attribute="categories" limit={5} showMore={true} />
-                  <Sidebar.Item
-                    href="#"
-                    icon={HiChartPie}
-                  >
-                    To Do
+                  <Separator.Root className="SeparatorRoot mt-2 mb-2 h-px bg-gray-200 dark:bg-gray-700" orientation="horizontal" />
+                  <Sidebar.Item className="px-0">
+                    <CustomRangeSlider attribute="stars" min={0} max={5} step={0.1} />
                   </Sidebar.Item>
                   <Sidebar.Item
                     href="#"

@@ -57,7 +57,7 @@ const RefinementList = ({
     <Button
       size="xs"
       // align left
-      className="w-full"
+      className="w-full mt-4"
       onClick={() => { setMore(!more); }}
     >
       Show {more ? 'less' : 'more'}

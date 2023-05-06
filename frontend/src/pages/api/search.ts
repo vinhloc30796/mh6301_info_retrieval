@@ -21,13 +21,19 @@ const client = Client({
   search_settings: {
     highlight_attributes: ["name", "address", "categories"],
     search_attributes: [{ field: "name", weight: 3 }, "address", "categories"],
-    result_attributes: ["name", "address", "price", "categories"],
+    result_attributes: ["name", "address", "price", "categories", "stars"],
     facet_attributes: [
       {
         attribute: "categories",
         field: "categories.keyword", // field must be a keyword type field
         type: "string",
       },
+      // stars
+      {
+        attribute: "stars",
+        field: "stars",
+        type: "numeric",
+      }
     ],
   },
 });
