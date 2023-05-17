@@ -22,6 +22,7 @@ const client = Client({
     highlight_attributes: ["name", "address", "categories"],
     search_attributes: [{ field: "name", weight: 3 }, "address", "categories"],
     result_attributes: ["name", "address", "price", "categories", "stars"],
+    geo_attribute: "_geoloc",
     facet_attributes: [
       {
         attribute: "categories",

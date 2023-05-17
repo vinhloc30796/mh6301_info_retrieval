@@ -22,10 +22,15 @@ import { CustomSearchBox } from "../components/_searchbox";
 import { CustomRangeSlider } from "../components/_rangeslider";
 import { CustomHits } from "../components/_hits";
 import { CustomRefinementList } from "../components/_refinementlist";
+import GoogleMapsLoader from "../components/_mapsloader";
+import CustomGeoSearch from "../components/_geosearch";
 
 const searchClient = Client({
   url: "/api/search",
 });
+
+const mapApiKey = 'AIzaSyCnxbEhpVqsd7m-dDGb3mJrFEnZFSKdKOU';
+const mapEndpoint = 'https://maps.googleapis.com/maps/api/js?v=weekly';
 
 
 export default function Home() {
@@ -70,6 +75,15 @@ export default function Home() {
               {/* <p className="text-2xl text-gray-400 dark:text-gray-500">+</p> */}
               <CustomSearchBox />
 
+            </div>
+            {/* Div for GeoSearch, top 1/4 of screen*/}
+            <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-4 h-1/4">
+              <GoogleMapsLoader
+                libraries={["marker"]}
+                render={google => <CustomGeoSearch google={google} />}
+              />
+
+              {/* <p>Test</p> */}
             </div>
             <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-4">
               {/* <p className="text-2xl text-gray-400 dark:text-gray-500">+</p> */}

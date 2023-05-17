@@ -40,6 +40,7 @@ const RefinementList = ({
       {items.map((item, i) => (i < limit || more) && (
         <a
           href=""
+          key = {item.label}
           style={{ fontWeight: item.isRefined ? 'bold' : '' }}
           onClick={event => {
             event.preventDefault();
