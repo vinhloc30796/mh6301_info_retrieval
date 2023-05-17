@@ -34,7 +34,7 @@ const GeoSearchCheckbox = (
   <form>
     <div className="flex items-center justify-end mt-4">
       <Checkbox.Root
-        id="geosearchcheckbox" 
+        id="geosearchcheckbox"
         className="flex items-center justify-center mr-2 bg-white border border-gray-300 rounded-md shadow-sm hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 w-6 h-6"
         // defaultChecked 
         onCheckedChange={onCheckedChange}
@@ -58,7 +58,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ google, hits, refine }) => {
   const [searchAsMove, setSearchAsMove] = useState(false); // State to handle checkbox status
   // Bounds
   const [bounds, setBounds] = useState<{ northEast: { lat: number, lng: number }, southWest: { lat: number, lng: number } } | null>(null);
-  const debouncedBounds = useDebounce(bounds, 300);  
+  const debouncedBounds = useDebounce(bounds, 300);
 
   // 1. Initialize Google Map
   useEffect(() => {
@@ -78,12 +78,17 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ google, hits, refine }) => {
     if (google && mapInstance) {
       console.log("Old markers: ", markers.length, "; New hits: ", hits.length)
       // Clear old hits
+      let clearedCount = 0;
       markers.forEach(marker => {
-        google.maps.event.clearInstanceListeners(marker); 
+        google.maps.event.clearInstanceListeners(marker);
         const result = marker.setMap(null)
+        clearedCount += 1;
         console.log("Clearing marker: ", result)
       });
-      setMarkers([]);
+      // Wait until all markers are cleared
+      while (clearedCount < markers.length) {
+        console.log("Waiting for markers to clear, ", markers.length - clearedCount, " left.")
+      }
 
       // Add new hits
       const newMarkers = hits.map(hit => {
@@ -95,6 +100,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ google, hits, refine }) => {
         console.log("Adding markers")
         return marker;
       })
+
       setMarkers(newMarkers);
     }
   }, [google, mapInstance, hits])
@@ -107,7 +113,8 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ google, hits, refine }) => {
         if (newBounds) {
           const ne = newBounds.getNorthEast();
           const sw = newBounds.getSouthWest();
-          setBounds({ northEast: { lat: ne.lat(), lng: ne.lng() }, southWest: { lat: sw.lat(), lng: sw.lng() } });        }
+          setBounds({ northEast: { lat: ne.lat(), lng: ne.lng() }, southWest: { lat: sw.lat(), lng: sw.lng() } });
+        }
       });
 
       return () => {
@@ -127,6 +134,14 @@ const GoogleMap: React.FC<GoogleMapProps> = ({ google, hits, refine }) => {
   const handleCheckboxChange = (checked: boolean | 'indeterminate') => {
     setSearchAsMove(checked as boolean);
     console.log("Checkbox value changed v2: ", checked);
+
+    // Clear old hits
+    if (!checked) {
+      refine({
+        northEast: { lat: 90, lng: 180 },
+        southWest: { lat: -90, lng: -180 }
+      });
+    }
   };
 
 
