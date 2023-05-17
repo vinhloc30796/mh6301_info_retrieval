@@ -1,0 +1,93 @@
+{
+  "mappings": {
+    "properties": {
+      "average_stars": {
+        "type": "float"
+      },
+      "compliment_cool": {
+        "type": "long"
+      },
+      "compliment_cute": {
+        "type": "long"
+      },
+      "compliment_funny": {
+        "type": "long"
+      },
+      "compliment_hot": {
+        "type": "long"
+      },
+      "compliment_list": {
+        "type": "long"
+      },
+      "compliment_more": {
+        "type": "long"
+      },
+      "compliment_note": {
+        "type": "long"
+      },
+      "compliment_photos": {
+        "type": "long"
+      },
+      "compliment_plain": {
+        "type": "long"
+      },
+      "compliment_profile": {
+        "type": "long"
+      },
+      "compliment_writer": {
+        "type": "long"
+      },
+      "cool": {
+        "type": "long"
+      },
+      "elite": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "fans": {
+        "type": "long"
+      },
+      "friends": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "funny": {
+        "type": "long"
+      },
+      "name": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "review_count": {
+        "type": "long"
+      },
+      "useful": {
+        "type": "long"
+      },
+      "yelping_since": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      }
+    }
+  }
+}

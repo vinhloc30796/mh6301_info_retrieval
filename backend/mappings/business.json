@@ -1,0 +1,167 @@
+{
+  "mappings": {
+    "properties": {
+      "_geoloc": {
+        "type": "text"
+      },
+      "address": {
+        "type": "text"
+      },
+      "attributes": {
+        "properties": {
+          "AcceptsInsurance": {
+            "type": "text"
+          },
+          "Alcohol": {
+            "type": "text"
+          },
+          "Ambience": {
+            "type": "text"
+          },
+          "BYOB": {
+            "type": "text"
+          },
+          "BYOBCorkage": {
+            "type": "text"
+          },
+          "BestNights": {
+            "type": "text"
+          },
+          "BikeParking": {
+            "type": "text"
+          },
+          "BusinessAcceptsBitcoin": {
+            "type": "text"
+          },
+          "BusinessAcceptsCreditCards": {
+            "type": "text"
+          },
+          "BusinessParking": {
+            "type": "text"
+          },
+          "ByAppointmentOnly": {
+            "type": "text"
+          },
+          "Caters": {
+            "type": "text"
+          },
+          "CoatCheck": {
+            "type": "text"
+          },
+          "Corkage": {
+            "type": "text"
+          },
+          "DogsAllowed": {
+            "type": "text"
+          },
+          "DriveThru": {
+            "type": "text"
+          },
+          "GoodForDancing": {
+            "type": "text"
+          },
+          "GoodForKids": {
+            "type": "text"
+          },
+          "GoodForMeal": {
+            "type": "text"
+          },
+          "HappyHour": {
+            "type": "text"
+          },
+          "HasTV": {
+            "type": "text"
+          },
+          "Music": {
+            "type": "text"
+          },
+          "NoiseLevel": {
+            "type": "text"
+          },
+          "OutdoorSeating": {
+            "type": "text"
+          },
+          "RestaurantsAttire": {
+            "type": "text"
+          },
+          "RestaurantsDelivery": {
+            "type": "text"
+          },
+          "RestaurantsGoodForGroups": {
+            "type": "text"
+          },
+          "RestaurantsPriceRange2": {
+            "type": "text"
+          },
+          "RestaurantsReservations": {
+            "type": "text"
+          },
+          "RestaurantsTableService": {
+            "type": "text"
+          },
+          "RestaurantsTakeOut": {
+            "type": "text"
+          },
+          "Smoking": {
+            "type": "text"
+          },
+          "WheelchairAccessible": {
+            "type": "text"
+          },
+          "WiFi": {
+            "type": "text"
+          }
+        }
+      },
+      "categories": {
+        "type": "text"
+      },
+      "city": {
+        "type": "text"
+      },
+      "hours": {
+        "properties": {
+          "Friday": {
+            "type": "text"
+          },
+          "Monday": {
+            "type": "text"
+          },
+          "Saturday": {
+            "type": "text"
+          },
+          "Sunday": {
+            "type": "text"
+          },
+          "Thursday": {
+            "type": "text"
+          },
+          "Tuesday": {
+            "type": "text"
+          },
+          "Wednesday": {
+            "type": "text"
+          }
+        }
+      },
+      "is_open": {
+        "type": "integer"
+      },
+      "name": {
+        "type": "text"
+      },
+      "postal_code": {
+        "type": "text"
+      },
+      "review_count": {
+        "type": "integer"
+      },
+      "stars": {
+        "type": "float"
+      },
+      "state": {
+        "type": "text"
+      }
+    }
+  }
+}
