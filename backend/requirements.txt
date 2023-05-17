@@ -1,0 +1,6 @@
+certifi==2023.5.7 ; python_version >= "3.8" and python_version < "4"
+elastic-transport==8.4.0 ; python_version >= "3.8" and python_version < "4"
+elasticsearch==8.7.0 ; python_version >= "3.8" and python_version < "4"
+polars==0.16.18 ; python_version >= "3.8" and python_version < "4.0"
+typing-extensions==4.5.0 ; python_version >= "3.8" and python_version < "3.11"
+urllib3==1.26.15 ; python_version >= "3.8" and python_version < "4"

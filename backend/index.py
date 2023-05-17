@@ -60,6 +60,7 @@ METADATA = [
 # ES
 def get_client() -> Elasticsearch:
     es_url = os.getenv("ES_URL", "http://localhost:9200")
+    print(f"Connecting to {es_url}...")
     return Elasticsearch(es_url)
 
 
