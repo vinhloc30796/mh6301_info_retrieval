@@ -2,7 +2,7 @@
   "mappings": {
     "properties": {
       "_geoloc": {
-        "type": "text"
+        "type": "geo_point"
       },
       "address": {
         "type": "text"
@@ -114,7 +114,12 @@
         }
       },
       "categories": {
-        "type": "text"
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
       },
       "city": {
         "type": "text"

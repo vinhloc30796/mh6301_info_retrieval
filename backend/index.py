@@ -7,6 +7,7 @@ from typing import List, Iterable, Callable, Union, Optional
 # ES
 from elasticsearch import Elasticsearch
 
+logging.basicConfig(level=logging.INFO)
 
 @dataclass
 class Metadata:
@@ -149,7 +150,7 @@ def process_data(
 
 def read_mapping(filename: str) -> dict:
     with open(filename, "r") as f:
-        return json.load(f)
+        return json.load(f)["mappings"]
 
 
 def main():
@@ -159,22 +160,17 @@ def main():
     # Read & process data
     limit = int(os.getenv("INDEX_LIMIT", 5))
     results = []
-    for metadata in METADATA:
+    for metadata in METADATA[0:1]:
+        print(f"Processing {metadata.index}...")
         # Read mapping
         mapping = read_mapping(metadata.mapping_filename)
         # Check if indices exist
-        if es.indices.exists(index=metadata.index):
-            # Update if so
-            es.indices.put_mapping(
+        if not es.indices.exists(index=metadata.index):
+            # if not, create
+            es.indices.create(
                 index=metadata.index,
-                body=mapping,
+                mappings=mapping,
             )
-        # Otherwise, create
-        es.indices.create(
-            index=metadata.index,
-            body={"mappings": mapping},
-            ignore=400,
-        )
         # Then index data
         new_result = process_data(
             metadata,
