@@ -15,8 +15,8 @@ export default function CustomNavbar() {
                         <a href="#" className="flex ml-2 md:mr-24">
                             <Image 
                                 src="https://flowbite.com/docs/images/logo.svg" 
+                                height={32}
                                 width={32}
-                                height={8}
                                 className="h-8 mr-3" 
                                 alt="FlowBite Logo" 
                                 />

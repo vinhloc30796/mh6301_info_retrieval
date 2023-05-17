@@ -1,20 +1,13 @@
-import Head from "next/head";
-
-// import styles from "@/styles/Home.module.css";
-
 import React from "react";
 // Flowbite
-import { Navbar, Sidebar } from "flowbite-react";
+import { Sidebar } from "flowbite-react";
 // HeroIcons
-import { HiChartPie, HiShoppingBag } from "react-icons/hi2";
+import { HiShoppingBag } from "react-icons/hi2";
 // Radix
 import * as Separator from "@radix-ui/react-separator";
 // SearchKit
 import Client from "@searchkit/instantsearch-client";
-import {
-  InstantSearch,
-  RangeSlider
-} from "react-instantsearch-dom";
+import { InstantSearch, Configure } from "react-instantsearch-dom";
 // Local
 import App from "./_app";
 import CustomNavbar from "../components/_navbar"
@@ -28,10 +21,6 @@ import CustomGeoSearch from "../components/_geosearch";
 const searchClient = Client({
   url: "/api/search",
 });
-
-const mapApiKey = 'AIzaSyCnxbEhpVqsd7m-dDGb3mJrFEnZFSKdKOU';
-const mapEndpoint = 'https://maps.googleapis.com/maps/api/js?v=weekly';
-
 
 export default function Home() {
   return (
@@ -49,6 +38,7 @@ export default function Home() {
       <main>
 
         <InstantSearch indexName="business" searchClient={searchClient}>
+          <Configure hitsPerPage={1000} />
           <div className="w-fit fixed top-0 left-0 z-40 pt-10">
             <Sidebar className="z-40">
               <Sidebar.Items>
@@ -72,21 +62,15 @@ export default function Home() {
 
           <div className="p-4 mt-5 sm:ml-64">
             <div className="flex items-center justify-center my-4 rounded bg-gray-50 dark:bg-gray-800">
-              {/* <p className="text-2xl text-gray-400 dark:text-gray-500">+</p> */}
               <CustomSearchBox />
-
             </div>
-            {/* Div for GeoSearch, top 1/4 of screen*/}
             <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-4 h-1/4">
               <GoogleMapsLoader
                 libraries={["marker"]}
                 render={google => <CustomGeoSearch google={google} />}
               />
-
-              {/* <p>Test</p> */}
             </div>
             <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-4">
-              {/* <p className="text-2xl text-gray-400 dark:text-gray-500">+</p> */}
               <div className="grid gap-4 mb-4">
                 <CustomHits />
               </div>
