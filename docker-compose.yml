@@ -18,3 +18,37 @@ services:
       # - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
     volumes:
       - ./elastic_data:/usr/share/opensearch/data
+    healthcheck:
+      test: curl -s http://elasticsearch:9200 >/dev/null || exit 1
+      interval: 5s
+      timeout: 10s
+      retries: 50
+
+  # When ElasticSearch is ready,
+  # Run Python index once to create index
+  index:
+    build: ./backend
+    command: python3 index.py
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    environment:
+      - ES_URL=http://elasticsearch:9200
+      - INDEX_LIMIT=150 # Limit the number of documents to index
+    volumes:
+      - ./data:/data
+  
+  # Run NextJS full-stack interface
+  app:
+    build: ./frontend
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+      index:
+        condition: service_completed_successfully
+    ports:
+      - 3000:3000
+    environment:
+      - ES_URL=http://elasticsearch:9200
+      - ES_USER=elasticsearch
+      - ES_PASS=changeme
