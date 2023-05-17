@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 // Flowbite
 import { Badge } from "flowbite-react";
@@ -8,6 +8,9 @@ import { HiChartPie } from "react-icons/hi2";
 import * as Slider from '@radix-ui/react-slider';
 // SearchKit
 import { connectRange } from "react-instantsearch-dom";
+
+import { useDebounce } from "../components/_debounce";
+
 
 type RangeSliderProps = {
   attribute: string;
@@ -31,17 +34,26 @@ const RangeSlider = ({
 }: RangeSliderProps) => {
   const defaultMin = min;
   const defaultMax = max;
-  const [minValue, setMinValue] = React.useState(currentRefinement.min);
-  const [maxValue, setMaxValue] = React.useState(currentRefinement.max);
+  const [minValue, setMinValue] = useState(currentRefinement.min);
+  const [maxValue, setMaxValue] = useState(currentRefinement.max);
+
+  // Debounce
+  const debouncedMinValue = useDebounce(minValue, 500);
+  const debouncedMaxValue = useDebounce(maxValue, 500);
 
   const onValueChange = (values: number[]) => {
     setMinValue(values[0]);
     setMaxValue(values[1]);
   };
 
-  const onValueCommit = (values: number[]) => {
-    refine({ min: values[0], max: values[1] });
-  };
+  // const onValueCommit = (values: number[]) => {
+  //   refine({ min: values[0], max: values[1] });
+  // };
+
+  useEffect(() => {
+    refine({ min: debouncedMinValue, max: debouncedMaxValue });
+  }, [debouncedMinValue, debouncedMaxValue, refine]);
+
 
   return (
     <div className="grid grid-rows-2 m-0"> {/* Two rows, 1. icon, stars; 2. Slider */}
@@ -64,7 +76,7 @@ const RangeSlider = ({
           value={[minValue, maxValue]}
           defaultValue={[defaultMin, defaultMax]}
           onValueChange={onValueChange}
-          onValueCommit={onValueCommit}
+          // onValueCommit={onValueCommit}
           className="flex relative w-full h-10 items-center"
         >
           <Slider.Track className="relative grow w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full">

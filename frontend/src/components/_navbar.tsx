@@ -1,3 +1,5 @@
+
+import Image  from "next/image"
 export default function CustomNavbar() {
     return (
         <nav className="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
@@ -11,7 +13,13 @@ export default function CustomNavbar() {
                             </svg>
                         </button>
                         <a href="#" className="flex ml-2 md:mr-24">
-                            <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 mr-3" alt="FlowBite Logo" />
+                            <Image 
+                                src="https://flowbite.com/docs/images/logo.svg" 
+                                height={32}
+                                width={32}
+                                className="h-8 mr-3" 
+                                alt="FlowBite Logo" 
+                                />
                             <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">MH6818 - Yelp Search</span>
                         </a>
                     </div>
@@ -27,16 +35,16 @@ export default function CustomNavbar() {
                                     </p>
                                 </div>
                                 <ul className="py-1" role="none">
-                                    <li>
+                                    <li key="dashboard-menu-item" role="none">
                                         <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Dashboard</a>
                                     </li>
-                                    <li>
+                                    <li key="profile-menu-item" role="none">
                                         <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</a>
                                     </li>
-                                    <li>
+                                    <li key="sign-out-menu-item" role="none">
                                         <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</a>
                                     </li>
-                                    <li>
+                                    <li key="sign-out-menu-item" role="none">
                                         <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</a>
                                     </li>
                                 </ul>
